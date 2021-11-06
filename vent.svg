@@ -1,15 +1,16 @@
-<?xml version="1.0" ?>
-<svg version="1.1" viewBox="0 0 200 120"
+<svg version="1.1" viewBox="0 0 190 100"
     xmlns="http://www.w3.org/2000/svg">
 
     <style>
-:root {
-    font: 5px 'Segoe UI', sans-serif;
-    background-color: #202024;
-}
+
 .white {
     fill: #fafafb;
 }
+
+.bypass .bypass-hidden {
+    display: none;
+}
+
     </style>
 
     <defs>
@@ -20,7 +21,7 @@
         </g>
 
         <g id="channel">
-            <polygon points="0,10 60,10 125,70 180,70 180,90 120,90 55,30 0,30" />
+            <polygon points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" />
         </g>
 
         <g id="radiator" transform="scale(.02)">
@@ -45,33 +46,38 @@
 
     <g transform="translate(12, 20) scale(.8)">
         <g>
+            <!-- Fresh -->
             <use href="#arrow-in" x="0" y="0" />
-            <text x="14" y="1" alignment-baseline="middle" text-anchor="end">69 °F</text>
+            <text class="temperature" x="14" y="1" alignment-baseline="middle" text-anchor="end">69 °F</text>
         </g>
         <g transform="translate(33,0)">
+            <!-- Preheater -->
             <use href="#radiator" x="0" y="0" fill="red" />
-            <text x="12" y="0" alignment-baseline="middle" text-anchor="middle" class="white" >69 °F</text>
+            <text class="temperature" x="12" y="0" alignment-baseline="middle" text-anchor="middle" class="white">69 °F</text>
         </g>
     </g>
 
-    <g transform="translate(168, 80) scale(.8)">
+    <g transform="translate(158, 80) scale(.8)">
         <g>
+            <!-- Fresh treated -->
             <use href="#arrow-in" x="0" y="0" />
-            <text x="14" y="2" text-anchor="end">69 °F</text>
+            <text x="14" y="2" text-anchor="end">80 °F</text>
         </g>
     </g>
 
-    <use x="10" y="0" href="#channel" transform="scale(-1, 1) translate(-200,-0)" stroke="red" />
+    <use x="10" y="0" href="#channel" transform="scale(1, -1) translate(-0,-100)" stroke="blue" class="bypass-hidden" />
 
     <g transform="translate(12, 80) scale(.8)">
         <g>
+            <!-- Exhaust treated -->
             <use href="#arrow-out" x="0" y="0" />
             <text x="10" y="2" text-anchor="begin">69 °F</text>
         </g>
     </g>
 
-    <g transform="translate(168, 20) scale(.8)">
+    <g transform="translate(158, 20) scale(.8)">
         <g>
+            <!-- Exhaust -->
             <use href="#arrow-out" x="0" y="0" />
             <text x="10" y="2" text-anchor="begin">69 °F</text>
         </g>
