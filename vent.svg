@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg version="1.1" viewBox="0 0 160 120"
+<svg version="1.1" viewBox="0 0 200 120"
     xmlns="http://www.w3.org/2000/svg">
 
     <style>
@@ -13,14 +13,18 @@
     </style>
 
     <defs>
-        <polygon id="arrow" transform="translate(0,-9)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white" stroke="none" />
+        <polygon id="arrow-in" transform="translate(0,-9)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white" stroke="none" />
 
-        <g id="channel">
-            <path d="M0,10 L 40,10 125,70 160,70 160,90 120,90 35,30 0,30 Z" />
+        <g id="arrow-out">
+            <use href="#arrow-in" transform="scale(-1,1) translate(-24)" />
         </g>
 
-        <g id="radiator" transform="scale(.025)">
-            <g transform="translate(-256, -256)">
+        <g id="channel">
+            <polygon points="0,10 60,10 125,70 180,70 180,90 120,90 55,30 0,30" />
+        </g>
+
+        <g id="radiator" transform="scale(.02)">
+            <g transform="translate(-280 -280)">
                 <path d="M160,0H96C84.218,0,74.667,9.551,74.667,21.333v21.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v213.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v21.333C74.667,502.449,84.218,512,96,512h64c11.782,0,21.333-9.551,21.333-21.333
@@ -37,20 +41,41 @@
         </g>
     </defs>
 
-    <use href="#channel" stroke="blue" />
+    <use x="10" y="0" href="#channel" stroke="blue" />
 
-    <g transform="translate(2, 20) scale(.8)">
-        <use href="#arrow" x="0" y="0" fill="red" />
-        <text x="14" y="2" text-anchor="end">69 °F</text>
-        <use href="#radiator" x="33" y="0" fill="red" />
+    <g transform="translate(12, 20) scale(.8)">
+        <g>
+            <use href="#arrow-in" x="0" y="0" />
+            <text x="14" y="1" alignment-baseline="middle" text-anchor="end">69 °F</text>
+        </g>
+        <g transform="translate(33,0)">
+            <use href="#radiator" x="0" y="0" fill="red" />
+            <text x="12" y="0" alignment-baseline="middle" text-anchor="middle" class="white" >69 °F</text>
+        </g>
+    </g>
+
+    <g transform="translate(168, 80) scale(.8)">
+        <g>
+            <use href="#arrow-in" x="0" y="0" />
+            <text x="14" y="2" text-anchor="end">69 °F</text>
+        </g>
+    </g>
+
+    <use x="10" y="0" href="#channel" transform="scale(-1, 1) translate(-200,-0)" stroke="red" />
+
+    <g transform="translate(12, 80) scale(.8)">
+        <g>
+            <use href="#arrow-out" x="0" y="0" />
+            <text x="10" y="2" text-anchor="begin">69 °F</text>
+        </g>
+    </g>
+
+    <g transform="translate(168, 20) scale(.8)">
+        <g>
+            <use href="#arrow-out" x="0" y="0" />
+            <text x="10" y="2" text-anchor="begin">69 °F</text>
+        </g>
     </g>
 
 
-    <text class="white" x="160" y="68" text-anchor="end">69 °F</text>
-
-    <use href="#channel" transform="scale(-1, 1) translate(-160,0)" stroke="red" />
-    <text class="white" x="160" y="8" text-anchor="end">69 °F</text>
-
-
-    <text class="white" x="0" y="68">69 °F</text>
 </svg>
