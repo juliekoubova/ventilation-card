@@ -126,21 +126,6 @@
             <stop offset="1" stop-color="#d56243" />
         </linearGradient>
 
-        <clipPath id="normal-clip">
-            <polygon points="0,10 60,10 130,70 180,70 180,90 125,90 55,30 0,30">
-                <animate attributeType="XML" attributeName="points" begin="indefinite" from="0,10 60,10 130,70 180,70 180,90 125,90 55,30 0,30" to="0,10 60,10 130,10 180,10 180,30 125,30 55,30 0,30" dur=".2s" repeatCount="1" fill="freeze" calcMode="spline" keySplines="0.185,0.675,0,0.995" />
-            </polygon>
-
-            <polygon points="0,70 55,70 125,10 180,10 180,30 130,30 60,90 0,90">
-                <animate attributeType="XML" attributeName="points" begin="indefinite" from="0,70 55,70 125,10 180,10 180,30 130,30 60,90 0,90" to="0,70 55,70 125,70 180,70 180,90 130,90 60,90 0,90" dur=".2s" repeatCount="1" fill="freeze" calcMode="spline" keySplines="0.185,0.675,0,0.995" />
-            </polygon>
-        </clipPath>
-
-        <clipPath id="bypass-clip">
-            <polygon points="0,10 180,10 180,30 0,30" />
-            <polygon points="0,70 180,70 180,90 0,90" />
-        </clipPath>
-
         <g id="radiator" transform="scale(.02)">
             <g transform="translate(-280 -340)" class="red">
                 <path d="M160,0H96C84.218,0,74.667,9.551,74.667,21.333v21.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
@@ -188,7 +173,7 @@
     </g>
 
     <g class="exhaust-in">
-        <title>Untreated exhaust temperature</title>
+        <title>Incoming exhaust temperature</title>
         <use href="#arrow-out" x="0" y="0" />
         <text class="temperature" x="19" y="0" text-anchor="end">24 °C</text>
     </g>
