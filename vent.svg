@@ -2,7 +2,7 @@
 <svg version="1.1" viewBox="0 0 160 120"
     xmlns="http://www.w3.org/2000/svg">
 
-<style>
+    <style>
 :root {
     font: 5px 'Segoe UI', sans-serif;
     background-color: #202024;
@@ -10,45 +10,47 @@
 .white {
     fill: #fafafb;
 }
-</style>
+    </style>
 
     <defs>
-        <marker id="arrowhead" markerWidth="2" markerHeight="2" refX="0" refY="1" orient="auto">
-            <polygon points="0 0, 2 1, 0 2" fill="white" stroke="none" />
-        </marker>
+        <polygon id="arrow" transform="translate(0,-9)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white" stroke="none" />
 
-        <line id="arrow" stroke="white" stroke-width="5" fill="white" x1="0" y1="0" x2="15" y2="0" marker-end="url(#arrowhead)" />
-
-        <g id="channel" >
+        <g id="channel">
             <path d="M0,10 L 40,10 125,70 160,70 160,90 120,90 35,30 0,30 Z" />
-            <use href="#arrow" x="3" y="20" />
-            <use href="#arrow" x="132" y="80"/>
         </g>
 
-		<g id="radiator" transform="scale(0.025)">
-			<path d="M160,0H96C84.218,0,74.667,9.551,74.667,21.333v21.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
+        <g id="radiator" transform="scale(.025)">
+            <g transform="translate(-256, -256)">
+                <path d="M160,0H96C84.218,0,74.667,9.551,74.667,21.333v21.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v213.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v21.333C74.667,502.449,84.218,512,96,512h64c11.782,0,21.333-9.551,21.333-21.333
 				V21.333C181.333,9.551,171.782,0,160,0z M53.333,106.667V85.333h21.333v21.333H53.333z M53.333,426.667v-21.333h21.333v21.333
 				H53.333z M138.667,469.333h-21.333V448v-64V128V64V42.667h21.333V469.333z"/>
-			<path d="M288,0h-64c-11.782,0-21.333,9.551-21.333,21.333v469.333c0,11.782,9.551,21.333,21.333,21.333h64
-				c11.782,0,21.333-9.551,21.333-21.333V21.333C309.333,9.551,299.782,0,288,0z M266.667,469.333h-21.333V42.667h21.333V469.333z"
-				/>
-			<path d="M480,149.333c11.782,0,21.333-9.551,21.333-21.333V64c0-11.782-9.551-21.333-21.333-21.333h-42.667V21.333
+                <path d="M288,0h-64c-11.782,0-21.333,9.551-21.333,21.333v469.333c0,11.782,9.551,21.333,21.333,21.333h64
+				c11.782,0,21.333-9.551,21.333-21.333V21.333C309.333,9.551,299.782,0,288,0z M266.667,469.333h-21.333V42.667h21.333V469.333z" />
+                <path d="M480,149.333c11.782,0,21.333-9.551,21.333-21.333V64c0-11.782-9.551-21.333-21.333-21.333h-42.667V21.333
 				C437.333,9.551,427.782,0,416,0h-64c-11.782,0-21.333,9.551-21.333,21.333v469.333c0,11.782,9.551,21.333,21.333,21.333h64
 				c11.782,0,21.333-9.551,21.333-21.333v-21.333H480c11.782,0,21.333-9.551,21.333-21.333v-64c0-11.782-9.551-21.333-21.333-21.333
 				h-42.667V149.333H480z M458.667,85.333v21.333h-21.333V85.333H458.667z M394.667,469.333h-21.333V42.667h21.333V64v64v256v64
 				V469.333z M458.667,405.333v21.333h-21.333v-21.333H458.667z"/>
-		</g>
+            </g>
+        </g>
     </defs>
 
     <use href="#channel" stroke="blue" />
-    <use href="#radiator" x="29" y="14" fill="red" />
-    <use href="#channel" transform="scale(-1, 1) translate(-160,0)" stroke="red" />
 
-    <text class="white" x="0" y="8" >69 °F</text>
+    <g transform="translate(2, 20) scale(.8)">
+        <use href="#arrow" x="0" y="0" fill="red" />
+        <text x="14" y="2" text-anchor="end">69 °F</text>
+        <use href="#radiator" x="33" y="0" fill="red" />
+    </g>
+
+
+    <text class="white" x="160" y="68" text-anchor="end">69 °F</text>
+
+    <use href="#channel" transform="scale(-1, 1) translate(-160,0)" stroke="red" />
     <text class="white" x="160" y="8" text-anchor="end">69 °F</text>
 
-    <text class="white" x="0" y="68" >69 °F</text>
-    <text class="white" x="160" y="68" text-anchor="end">69 °F</text>
+
+    <text class="white" x="0" y="68">69 °F</text>
 </svg>
