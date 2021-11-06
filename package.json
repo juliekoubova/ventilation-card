@@ -5,7 +5,7 @@
   "author": "Julie Koubova <jkoubova@microsoft.com>",
   "license": "MIT",
   "scripts": {
-    "start": "http-server"
+    "start": "http-server -c-1 -p8080"
   },
   "dependencies": {
     "http-server": "^14.0.0"

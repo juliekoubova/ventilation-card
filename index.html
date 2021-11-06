@@ -10,21 +10,23 @@
 
 <body>
 
-    <h2>Active</h2>
-    <div class="insert-svg"></div>
+    <div style="display:flex; user-select: none;">
+        <label> <input type="checkbox" data-toggle="bypass" disabled>Bypass</label>
+        <label> <input type="checkbox" data-toggle="preheater" disabled>Preheater</label>
+    </div>
 
-    <h2>Bypass</h2>
-    <div class="insert-svg bypass"></div>
+    <object data="vent.svg"></object>
 
     <script type="module">
-        const template = document.createElement('template');
-        const svg = await fetch('vent.svg');
-        template.innerHTML = await svg.text();
-
-        for (const el of document.querySelectorAll('.insert-svg')) {
-            el.appendChild(template.content.firstElementChild.cloneNode(true));
-            el.classList.remove('insert-svg');
-        }
+        const svg = document.querySelector('object');
+        svg.addEventListener('load', () => {
+            for (const el of document.querySelectorAll('[data-toggle]')) {
+                el.removeAttribute('disabled')
+                el.addEventListener('change', () => {
+                    svg.contentDocument.rootElement.classList.toggle(el.dataset.toggle);
+                });
+            }
+        });
     </script>
 </body>
 

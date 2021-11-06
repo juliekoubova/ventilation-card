@@ -3,29 +3,98 @@
 
     <style>
 
-.white {
-    fill: #fafafb;
-}
+    :root {
+        background: #202024;
+        --left-x: 12px;
+        --right-x: 158px;
+        --top-y: 22px;
+        --bottom-y: 82px;
+        --red: #e56172;
+    }
 
-.bypass .bypass-hidden {
-    display: none;
-}
+    .temperature {
+        font: 5px 'Segoe UI', sans-serif;
+    }
+
+    .white {
+        fill: #fafafb;
+    }
+
+    .opacity-80 {
+        opacity: .8;
+    }
+
+    .red {
+        fill: var(--red);
+    }
+
+    .channel {
+        stroke-linejoin: round;
+        stroke-width: 2px;
+    }
+
+    .bypass .bypass-hidden,
+    .bypass-visible,
+    .preheater-visible {
+        display: none;
+    }
+
+    .bypass .bypass-visible,
+    .preheater .preheater-visible {
+        display: block;
+    }
+
+    .exhaust-in {
+        transform: translate(var(--right-x), var(--top-y));
+        transition: transform .25s ease-out;
+    }
+
+    .exhaust-treated, .bypass .fresh-in {
+        transform: translate(var(--left-x), var(--bottom-y));
+        transition: transform .25s ease-out;
+    }
+
+    .fresh-in, .bypass .exhaust-treated {
+        transform: translate(var(--left-x), var(--top-y));
+        transition: transform .25s ease-out;
+    }
+
+    .fresh-treated {
+        transform: translate(var(--right-x), var(--bottom-y));
+        transition: transform .25s ease-out;
+    }
+
 
     </style>
 
     <defs>
-        <polygon id="arrow-in" transform="translate(0,-9)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white" stroke="none" />
+        <polygon id="arrow-in" transform="translate(0,-9) scale(.8)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white opacity-80" stroke="none" />
 
         <g id="arrow-out">
-            <use href="#arrow-in" transform="scale(-1,1) translate(-24)" />
+            <use href="#arrow-in" transform="scale(-1,1) translate(-20)" />
         </g>
 
+        <linearGradient id="channel-fill" x1="0" y1="0" x2="190" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#56cbf1" />
+            <stop offset="0.14285714285714285" stop-color="#66bdfa" />
+            <stop offset="0.2857142857142857" stop-color="#8bacf8" />
+            <stop offset="0.42857142857142855" stop-color="#b297e7" />
+            <stop offset="0.5714285714285714" stop-color="#d181c9" />
+            <stop offset="0.7142857142857142" stop-color="#e36da0" />
+            <stop offset="0.8571428571428571" stop-color="#e56172" />
+            <stop offset="1" stop-color="#d56243" />
+        </linearGradient>
+
         <g id="channel">
-            <polygon points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" />
+            <polygon class="channel bypass-hidden" points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" fill="url(#channel-fill)" />
+        </g>
+
+        <g id="channel-bypass">
+            <polygon class="channel bypass-visible" points="0,10 170,10 170,30 0,30" fill="url(#channel-fill)"/>
         </g>
 
         <g id="radiator" transform="scale(.02)">
-            <g transform="translate(-280 -280)">
+            <g transform="translate(-280 -340)" class="red">
                 <path d="M160,0H96C84.218,0,74.667,9.551,74.667,21.333v21.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v213.333H32c-11.782,0-21.333,9.551-21.333,21.333v64
 				c0,11.782,9.551,21.333,21.333,21.333h42.667v21.333C74.667,502.449,84.218,512,96,512h64c11.782,0,21.333-9.551,21.333-21.333
@@ -42,44 +111,46 @@
         </g>
     </defs>
 
-    <use x="10" y="0" href="#channel" stroke="blue" />
+    <use x="10" y="0" href="#channel" />
+    <use x="10" y="0" href="#channel-bypass" />
+    <use x="10" y="0" href="#channel" transform="scale(1, -1) translate(-0,-100)" />
+    <use x="10" y="60" href="#channel-bypass" />
 
-    <g transform="translate(12, 20) scale(.8)">
+
+    <g class="fresh-in">
         <g>
-            <!-- Fresh -->
+            <!-- Fresh in -->
             <use href="#arrow-in" x="0" y="0" />
-            <text class="temperature" x="14" y="1" alignment-baseline="middle" text-anchor="end">69 °F</text>
+            <text class="temperature" x="12" y="0" text-anchor="end">10 °C</text>
         </g>
-        <g transform="translate(33,0)">
+        <g transform="translate(26,0)" class="preheater-visible">
             <!-- Preheater -->
-            <use href="#radiator" x="0" y="0" fill="red" />
-            <text class="temperature" x="12" y="0" alignment-baseline="middle" text-anchor="middle" class="white">69 °F</text>
+            <use href="#radiator" x="0" y="0" />
+            <text class="temperature white" x="6" y="0">60 °C</text>
         </g>
     </g>
 
-    <g transform="translate(158, 80) scale(.8)">
+    <g class="fresh-treated">
         <g>
             <!-- Fresh treated -->
             <use href="#arrow-in" x="0" y="0" />
-            <text x="14" y="2" text-anchor="end">80 °F</text>
+            <text class="temperature" x="12" y="0" text-anchor="end">19 °C</text>
         </g>
     </g>
 
-    <use x="10" y="0" href="#channel" transform="scale(1, -1) translate(-0,-100)" stroke="blue" class="bypass-hidden" />
-
-    <g transform="translate(12, 80) scale(.8)">
+    <g class="exhaust-treated">
         <g>
             <!-- Exhaust treated -->
             <use href="#arrow-out" x="0" y="0" />
-            <text x="10" y="2" text-anchor="begin">69 °F</text>
+            <text class="temperature" x="19" y="0" text-anchor="end">14 °C</text>
         </g>
     </g>
 
-    <g transform="translate(158, 20) scale(.8)">
+    <g class="exhaust-in">
         <g>
-            <!-- Exhaust -->
+            <!-- Exhaust in -->
             <use href="#arrow-out" x="0" y="0" />
-            <text x="10" y="2" text-anchor="begin">69 °F</text>
+            <text class="temperature" x="19" y="0" text-anchor="end">24 °C</text>
         </g>
     </g>
 
