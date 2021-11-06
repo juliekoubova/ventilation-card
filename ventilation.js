@@ -7,10 +7,13 @@
 
     const PreheaterThreshold = 10;
 
-    const FanRotationDurationMax = 10; // seconds
-    const FanRotationDurationMin = 2; // seconds
+    const FanRotationRateMin = .2;
+    const FanRotationRateMax = 1;
 
     function onDomContentLoaded() {
+
+        /** @type {Animation?} */
+        let fanAnimation;
 
         /** @param {keyof Mapping} name */
         function getValue(name) {
@@ -20,25 +23,21 @@
 
         function updateFanAnimation() {
             const power = getValue('power');
-            const anim = document.getElementById('fan').querySelector('animateTransform');
+            const fan = document.getElementById('fan').firstElementChild;
 
-            if (power < 1) {
-                anim.endElement();
-            } else {
-                const currentDuration = anim.getSimpleDuration();
-                const newDuration = FanRotationDurationMax -
-                    (power / 100) * (FanRotationDurationMax - FanRotationDurationMin);
+            const playbackRate = FanRotationRateMin + (power / 100) * (FanRotationRateMax - FanRotationRateMin);
 
-                try {
-                    const currentTime = anim.getCurrentTime();
-                    const t = currentTime / currentDuration;
-                    const newTime = t * newDuration;
-
-                    anim.setAttribute('dur', `${newDuration}s`);
-                    anim.setCurrentTime(newTime);
-                } catch (e) {
-                    anim.beginElement();
+            if (power > 0) {
+                if (fanAnimation) {
+                    fanAnimation.updatePlaybackRate(playbackRate);
+                } else {
+                    fanAnimation = fan.animate(
+                        [{ transform: 'rotate(360deg)' }],
+                        { duration: 1_000, iterations: Infinity, playbackRate }
+                    );
                 }
+            } else {
+                fanAnimation?.updatePlaybackRate(0);
             }
         }
 
