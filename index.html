@@ -1,22 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+    <style>
+        label {
+            user-select: none;
+        }
+    </style>
 </head>
 
 <body>
+    <div style="display: flex; flex-direction: column; padding: 0 1rem">
+        <div style="display: grid; width: 14rem; grid-template-columns: auto 5rem; gap: 0.2rem; margin: 1rem 0;">
+            <label for="fresh-in"> Incoming fresh air </label>
+            <input type="number" disabled id="fresh-in" value="9">
 
-    <div style="display:flex; user-select: none;">
-        <label> <input type="checkbox" data-toggle="bypass" disabled>Bypass</label>
-        <label> <input type="checkbox" data-toggle="preheater" disabled>Preheater</label>
-        <label> <input type="checkbox" data-toggle="warmer-outside" disabled>Warmer outside</label>
+            <label for="fresh-treated"> Treated fresh air </label>
+            <input type="number" disabled id="fresh-treated" value="19">
+
+            <label for="exhaust-in"> Incoming exhaust </label>
+            <input type="number" disabled id="exhaust-in" value="22">
+
+            <label for="exhaust-treated"> Treated exhaust </label>
+            <input type="number" disabled id="exhaust-treated" value="11">
+
+            <label for="preheater"> Preheater </label>
+            <input type="number" disabled id="preheater" value="40">
+
+            <label for="bypass"> Bypass </label>
+            <input type="checkbox" data-toggle="bypass" disabled>
+
+            <label for="warmer-outside"> Warmer outside </label>
+            <input type="checkbox" data-toggle="warmer-outside" disabled>
+        </div>
+
+        <div style="flex: 1;">
+            <object width="1024" height="720" data="ventilation.svg" ></object>
+        </div>
     </div>
-
-    <object data="vent.svg"></object>
 
     <script type="module">
         const svg = document.querySelector('object');
@@ -26,6 +52,17 @@
                 el.addEventListener('change', () => {
                     svg.contentDocument.rootElement.classList.toggle(el.dataset.toggle);
                 });
+            }
+            for (const input of document.querySelectorAll('input[type=number]')) {
+                const svg_element = svg.contentDocument.getElementById(input.id);
+                if (svg_element) {
+                    function update() {
+                        svg_element.textContent = input.value;
+                    }
+                    input.removeAttribute('disabled')
+                    input.addEventListener('change', update);
+                    update();
+                }
             }
         });
     </script>

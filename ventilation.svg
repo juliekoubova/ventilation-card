@@ -6,8 +6,8 @@
     :root {
         background: #202024;
         user-select: none;
-        --left-x: 12px;
-        --right-x: 158px;
+        --left-x: 2px;
+        --right-x: 164px;
         --top-y: 22px;
         --bottom-y: 82px;
         --red: #e56172;
@@ -37,19 +37,63 @@
     }
 
     .fresh-channel {
-        clip-path: polygon(0% 0%, 33% 0%, 73% 75%, 100% 75%, 100% 100%, 70% 100%, 30% 25%, 0% 25%);
+        clip-path: polygon(
+            0%   0%,
+            33%  0%,
+            73%  75%,
+            95%  75%,
+            100% 87.5%,
+            95%  100%,
+            70%  100%,
+            30%  25%,
+            0%   25%,
+            5%   12.5%
+        );
     }
 
     .exhaust-channel {
-        clip-path: polygon(0% 75%, 30% 75%, 70% 0%, 100% 0%, 100% 25%, 73% 25%, 33% 100%, 0% 100%);
+        clip-path: polygon(
+            0% 87.5%,
+            5% 75%,
+            30% 75%,
+            70% 0%,
+            100% 0%,
+            95% 12.5%,
+            100% 25%,
+            73% 25%,
+            33% 100%,
+            5% 100%
+        );
     }
 
     .bypass .fresh-channel {
-        clip-path: polygon(0% 75%, 30% 75%, 70% 75%, 100% 75%, 100% 100%, 73% 100%, 33% 100%, 0% 100%);
+        clip-path: polygon(
+            0% 75%,
+            30% 75%,
+            70% 75%,
+            95% 75%,
+            100% 87.5%,
+            95% 100%,
+            73% 100%,
+            33% 100%,
+            0% 100%,
+            5% 87.5%
+        );
     }
 
     .bypass .exhaust-channel {
-        clip-path: polygon(0% 0%, 33% 0%, 73% 0%, 100% 0%, 100% 25%, 70% 25%, 30% 25%, 0% 25%);
+        clip-path: polygon(
+            0% 12.5%,
+            5% 0%,
+            33% 0%,
+            73% 0%,
+            100% 0%,
+            95% 12.5%,
+            100% 25%,
+            70% 25%,
+            30% 25%,
+            5% 25%
+        );
     }
 
     .warmer-outside .channel {
@@ -97,13 +141,9 @@
 
     </style>
 
+    <script href="ventilation.js"></script>
+
     <defs>
-        <polygon id="arrow-in" transform="translate(0,-9) scale(.8)" points="0 4, 14 4, 14 0, 24 9, 14 18, 14 14, 0 14" class="white opacity-80" stroke="none" />
-
-        <g id="arrow-out">
-            <use href="#arrow-in" transform="scale(-1,1) translate(-20)" />
-        </g>
-
         <linearGradient id="channel-fill" x1="0" y1="0" x2="190" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#56cbf1" />
             <stop offset="0.14285714285714285" stop-color="#66bdfa" />
@@ -150,32 +190,38 @@
     <g class="fresh-in">
         <g>
             <title>Incoming fresh air temperature</title>
-            <use href="#arrow-in" x="0" y="0" />
-            <text id="fresh-in-temperature" class="temperature" x="12" y="0" text-anchor="end">10 °C</text>
+            <text class="temperature white" x="12" y="0" text-anchor="end">
+                <tspan id="fresh-in">14</tspan> °C
+            </text>
         </g>
-        <g transform="translate(26,0)" class="preheater-visible">
+        <g transform="translate(24,0)" class="preheater-visible">
             <title>Preheater temperature</title>
             <use href="#radiator" x="0" y="0" />
-            <text id="preheater-temperature" class="temperature white" x="6" y="0">60 °C</text>
+            <text class="temperature white" x="6" y="0">
+                <tspan id="preheater">60</tspan> °C
+            </text>
         </g>
     </g>
 
     <g class="fresh-treated">
         <title>Treated fresh air temperature</title>
-        <use href="#arrow-in" x="0" y="0" />
-        <text id="fresh-treated-temperature" class="temperature" x="12" y="0" text-anchor="end">19 °C</text>
+        <text class="temperature" x="10" y="0" text-anchor="end">
+            <tspan id="fresh-treated">19</tspan> °C
+        </text>
     </g>
 
     <g class="exhaust-treated">
         <title>Treated exhaust temperature</title>
-        <use href="#arrow-out" x="0" y="0" />
-        <text id="exhaust-treated-temperature" class="temperature" x="19" y="0" text-anchor="end">14 °C</text>
+        <text class="temperature" x="24" y="0" text-anchor="end">
+            <tspan id="exhaust-treated">14</tspan> °C
+        </text>
     </g>
 
     <g class="exhaust-in">
         <title>Incoming exhaust temperature</title>
-        <use href="#arrow-out" x="0" y="0" />
-        <text class="temperature" x="19" y="0" text-anchor="end">24 °C</text>
+        <text class="temperature white" x="24" y="0" text-anchor="end">
+            <tspan id="exhaust-in">24</tspan> °C
+        </text>
     </g>
 
 </svg>
