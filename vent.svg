@@ -5,6 +5,7 @@
 
     :root {
         background: #202024;
+        user-select: none;
         --left-x: 12px;
         --right-x: 158px;
         --top-y: 22px;
@@ -29,19 +30,32 @@
     }
 
     .channel {
+        fill: url(#channel-fill);
         stroke-linejoin: round;
         stroke-width: 2px;
     }
 
-    .bypass .bypass-hidden,
-    .bypass-visible,
-    .preheater-visible {
+    .warmer-outside .channel {
+        fill: url(#channel-fill-warmer-outside);
+    }
+
+    .bypass .bypass-hidden, .bypass-visible {
         display: none;
     }
 
-    .bypass .bypass-visible,
+    .bypass .bypass-visible {
+        display: block;
+    }
+
+    .preheater-visible {
+        display: none;
+        opacity: 0;
+    }
+
     .preheater .preheater-visible {
         display: block;
+        opacity: 1;
+        transition: opacity .3s ease-in;
     }
 
     .exhaust-in {
@@ -85,12 +99,23 @@
             <stop offset="1" stop-color="#d56243" />
         </linearGradient>
 
+        <linearGradient id="channel-fill-warmer-outside" x1="190" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#56cbf1" />
+            <stop offset="0.14285714285714285" stop-color="#66bdfa" />
+            <stop offset="0.2857142857142857" stop-color="#8bacf8" />
+            <stop offset="0.42857142857142855" stop-color="#b297e7" />
+            <stop offset="0.5714285714285714" stop-color="#d181c9" />
+            <stop offset="0.7142857142857142" stop-color="#e36da0" />
+            <stop offset="0.8571428571428571" stop-color="#e56172" />
+            <stop offset="1" stop-color="#d56243" />
+        </linearGradient>
+
         <g id="channel">
-            <polygon class="channel bypass-hidden" points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" fill="url(#channel-fill)" />
+            <polygon class="channel bypass-hidden" points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" />
         </g>
 
         <g id="channel-bypass">
-            <polygon class="channel bypass-visible" points="0,10 170,10 170,30 0,30" fill="url(#channel-fill)"/>
+            <polygon class="channel bypass-visible" points="0,10 170,10 170,30 0,30" />
         </g>
 
         <g id="radiator" transform="scale(.02)">
@@ -119,40 +144,33 @@
 
     <g class="fresh-in">
         <g>
-            <!-- Fresh in -->
+            <title>Incoming fresh air temperature</title>
             <use href="#arrow-in" x="0" y="0" />
-            <text class="temperature" x="12" y="0" text-anchor="end">10 °C</text>
+            <text id="fresh-in-temperature" class="temperature" x="12" y="0" text-anchor="end">10 °C</text>
         </g>
         <g transform="translate(26,0)" class="preheater-visible">
-            <!-- Preheater -->
+            <title>Preheater temperature</title>
             <use href="#radiator" x="0" y="0" />
-            <text class="temperature white" x="6" y="0">60 °C</text>
+            <text id="preheater-temperature" class="temperature white" x="6" y="0">60 °C</text>
         </g>
     </g>
 
     <g class="fresh-treated">
-        <g>
-            <!-- Fresh treated -->
-            <use href="#arrow-in" x="0" y="0" />
-            <text class="temperature" x="12" y="0" text-anchor="end">19 °C</text>
-        </g>
+        <title>Treated fresh air temperature</title>
+        <use href="#arrow-in" x="0" y="0" />
+        <text id="fresh-treated-temperature" class="temperature" x="12" y="0" text-anchor="end">19 °C</text>
     </g>
 
     <g class="exhaust-treated">
-        <g>
-            <!-- Exhaust treated -->
-            <use href="#arrow-out" x="0" y="0" />
-            <text class="temperature" x="19" y="0" text-anchor="end">14 °C</text>
-        </g>
+        <title>Treated exhaust temperature</title>
+        <use href="#arrow-out" x="0" y="0" />
+        <text id="exhaust-treated-temperature" class="temperature" x="19" y="0" text-anchor="end">14 °C</text>
     </g>
 
     <g class="exhaust-in">
-        <g>
-            <!-- Exhaust in -->
-            <use href="#arrow-out" x="0" y="0" />
-            <text class="temperature" x="19" y="0" text-anchor="end">24 °C</text>
-        </g>
+        <title>Untreated exhaust temperature</title>
+        <use href="#arrow-out" x="0" y="0" />
+        <text class="temperature" x="19" y="0" text-anchor="end">24 °C</text>
     </g>
-
 
 </svg>
