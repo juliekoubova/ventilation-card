@@ -33,6 +33,23 @@
         fill: url(#channel-fill);
         stroke-linejoin: round;
         stroke-width: 2px;
+        transition: clip-path .25s ease-out;
+    }
+
+    .fresh-channel {
+        clip-path: polygon(0% 0%, 33% 0%, 73% 75%, 100% 75%, 100% 100%, 70% 100%, 30% 25%, 0% 25%);
+    }
+
+    .exhaust-channel {
+        clip-path: polygon(0% 75%, 30% 75%, 70% 0%, 100% 0%, 100% 25%, 73% 25%, 33% 100%, 0% 100%);
+    }
+
+    .bypass .fresh-channel {
+        clip-path: polygon(0% 75%, 30% 75%, 70% 75%, 100% 75%, 100% 100%, 73% 100%, 33% 100%, 0% 100%);
+    }
+
+    .bypass .exhaust-channel {
+        clip-path: polygon(0% 0%, 33% 0%, 73% 0%, 100% 0%, 100% 25%, 70% 25%, 30% 25%, 0% 25%);
     }
 
     .warmer-outside .channel {
@@ -78,7 +95,6 @@
         transition: transform .25s ease-out;
     }
 
-
     </style>
 
     <defs>
@@ -110,13 +126,20 @@
             <stop offset="1" stop-color="#d56243" />
         </linearGradient>
 
-        <g id="channel">
-            <polygon class="channel bypass-hidden" points="0,10 50,10 125,70 170,70 170,90 120,90 45,30 0,30" />
-        </g>
+        <clipPath id="normal-clip">
+            <polygon points="0,10 60,10 130,70 180,70 180,90 125,90 55,30 0,30">
+                <animate attributeType="XML" attributeName="points" begin="indefinite" from="0,10 60,10 130,70 180,70 180,90 125,90 55,30 0,30" to="0,10 60,10 130,10 180,10 180,30 125,30 55,30 0,30" dur=".2s" repeatCount="1" fill="freeze" calcMode="spline" keySplines="0.185,0.675,0,0.995" />
+            </polygon>
 
-        <g id="channel-bypass">
-            <polygon class="channel bypass-visible" points="0,10 170,10 170,30 0,30" />
-        </g>
+            <polygon points="0,70 55,70 125,10 180,10 180,30 130,30 60,90 0,90">
+                <animate attributeType="XML" attributeName="points" begin="indefinite" from="0,70 55,70 125,10 180,10 180,30 130,30 60,90 0,90" to="0,70 55,70 125,70 180,70 180,90 130,90 60,90 0,90" dur=".2s" repeatCount="1" fill="freeze" calcMode="spline" keySplines="0.185,0.675,0,0.995" />
+            </polygon>
+        </clipPath>
+
+        <clipPath id="bypass-clip">
+            <polygon points="0,10 180,10 180,30 0,30" />
+            <polygon points="0,70 180,70 180,90 0,90" />
+        </clipPath>
 
         <g id="radiator" transform="scale(.02)">
             <g transform="translate(-280 -340)" class="red">
@@ -136,11 +159,8 @@
         </g>
     </defs>
 
-    <use x="10" y="0" href="#channel" />
-    <use x="10" y="0" href="#channel-bypass" />
-    <use x="10" y="0" href="#channel" transform="scale(1, -1) translate(-0,-100)" />
-    <use x="10" y="60" href="#channel-bypass" />
-
+    <rect class="channel fresh-channel" x="10" y="10" width="170" height="80" />
+    <rect class="channel exhaust-channel" x="10" y="10" width="170" height="80" />
 
     <g class="fresh-in">
         <g>
