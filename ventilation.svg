@@ -1,4 +1,4 @@
-<svg version="1.1" viewBox="0 0 190 100"
+<svg version="1.1" viewBox="0 0 200 100"
     xmlns="http://www.w3.org/2000/svg" class="ventilation-root">
 
     <style>
@@ -36,66 +36,6 @@
         transition: clip-path .25s ease-out;
     }
 
-    .ventilation-root .fresh-channel {
-        clip-path: polygon(
-            0%   0%,
-            33%  0%,
-            73%  75%,
-            95%  75%,
-            100% 87.5%,
-            95%  100%,
-            70%  100%,
-            30%  25%,
-            0%   25%,
-            5%   12.5%
-        );
-    }
-
-    .ventilation-root .exhaust-channel {
-        clip-path: polygon(
-            0% 87.5%,
-            5% 75%,
-            30% 75%,
-            70% 0%,
-            100% 0%,
-            95% 12.5%,
-            100% 25%,
-            73% 25%,
-            33% 100%,
-            5% 100%
-        );
-    }
-
-    .ventilation-root.bypass .fresh-channel {
-        clip-path: polygon(
-            0% 75%,
-            30% 75%,
-            70% 75%,
-            95% 75%,
-            100% 87.5%,
-            95% 100%,
-            73% 100%,
-            33% 100%,
-            0% 100%,
-            5% 87.5%
-        );
-    }
-
-    .ventilation-root.bypass .exhaust-channel {
-        clip-path: polygon(
-            0% 12.5%,
-            5% 0%,
-            33% 0%,
-            73% 0%,
-            100% 0%,
-            95% 12.5%,
-            100% 25%,
-            70% 25%,
-            30% 25%,
-            5% 25%
-        );
-    }
-
     .ventilation-root.bypass .bypass-hidden, .bypass-visible {
         display: none;
     }
@@ -115,25 +55,26 @@
         transition: opacity .3s ease-in;
     }
 
-    .ventilation-root .exhaust-in {
-        transform: translate(var(--right-x), var(--top-y));
-        transition: transform .25s ease-out;
-    }
-
-    .ventilation-root .exhaust-treated, .ventilation-root.bypass .fresh-in {
-        transform: translate(var(--left-x), var(--bottom-y));
-        transition: transform .25s ease-out;
-    }
-
-    .ventilation-root .fresh-in, .ventilation-root.bypass .exhaust-treated {
+    .ventilation-root .fresh-in {
         transform: translate(var(--left-x), var(--top-y));
         transition: transform .25s ease-out;
     }
 
     .ventilation-root .fresh-treated {
+        transform: translate(var(--right-x), var(--top-y));
+        transition: transform .25s ease-out;
+    }
+
+    .ventilation-root .exhaust-treated {
+        transform: translate(var(--left-x), var(--bottom-y));
+        transition: transform .25s ease-out;
+    }
+
+    .ventilation-root .exhaust-in {
         transform: translate(var(--right-x), var(--bottom-y));
         transition: transform .25s ease-out;
     }
+
 
     </style>
 
@@ -141,17 +82,6 @@
 
     <defs>
         <linearGradient id="channel-fill" x1="0" y1="0" x2="190" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#56cbf1" />
-            <stop offset="0.14285714285714285" stop-color="#66bdfa" />
-            <stop offset="0.2857142857142857" stop-color="#8bacf8" />
-            <stop offset="0.42857142857142855" stop-color="#b297e7" />
-            <stop offset="0.5714285714285714" stop-color="#d181c9" />
-            <stop offset="0.7142857142857142" stop-color="#e36da0" />
-            <stop offset="0.8571428571428571" stop-color="#e56172" />
-            <stop offset="1" stop-color="#d56243" />
-        </linearGradient>
-
-        <linearGradient id="channel-fill-warmer-outside" x1="190" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#56cbf1" />
             <stop offset="0.14285714285714285" stop-color="#66bdfa" />
             <stop offset="0.2857142857142857" stop-color="#8bacf8" />
@@ -192,10 +122,23 @@
                 c2.802,0,5.072,2.271,5.072,5.072C55.072,52.803,52.802,55.074,50,55.074z" transform-origin="50 50">
             </path>
         </g>
+
+        <path id="one-duct" d="
+                M 12,0
+                l 53,0 25,25 26,0 25,-25 53,0
+                l -6,12 6,12
+                l -44,0 -25,25, -44,0 -25,-25 -44,0
+                l -6,-12 6,-12
+                z
+            " />
+        <clipPath id="ducts-clip">
+            <use href="#one-duct" />
+            <use href="#one-duct" transform-origin="50 50" transform="scale(-1,-1) translate(-106,10)" />
+        </clipPath>
+
     </defs>
 
-    <rect class="channel fresh-channel" x="10" y="10" width="170" height="80" />
-    <rect class="channel exhaust-channel" x="10" y="10" width="170" height="80" />
+    <rect transform="translate(0,5)" class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
 
     <g class="power" transform="translate(85 45)">
         <rect x="0" y="0" width="25" height="10" fill="#ffffff80" rx="2" />
