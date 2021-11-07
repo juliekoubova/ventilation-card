@@ -17,6 +17,10 @@
         font: 5px 'Segoe UI', sans-serif;
     }
 
+    .ventilation-root .larger {
+        font-size: 8px;
+    }
+
     .ventilation-root .white {
         fill: #fafafb;
     }
@@ -109,7 +113,7 @@
             </g>
         </g>
 
-        <g id="fan" transform="translate(-1.5, -4.1) scale(.08)">
+        <g id="fan" transform="translate(-1.5, -4.1) scale(.12)">
             <path d="M62.841,46.809c4.031-1.447,10.757-2.366,17.216,1.222c10.979,6.097,21.299-3.18,19.797-13.452
                 C98.522,25.476,92.9,16.208,85.76,12.484c-10.678-5.565-18.762-2.468-25.019,4.323c-4.097,4.45-8.382,12.298-8.714,19.762
                 c-0.157,3.514-4.237,3.329-5.218,0.591c-1.448-4.031-2.367-10.758,1.219-17.215c6.1-10.981-3.178-21.302-13.449-19.799
@@ -133,58 +137,61 @@
             ">
         </path>
         <clipPath id="ducts-clip">
-            <use href="#one-duct" />
-            <use href="#one-duct" transform-origin="50 50" transform="scale(-1,-1) translate(-108,10)" />
+            <use href="#one-duct" transform-origin="50 50" transform="scale(-1,1) translate(-108,-0)" />
+            <use href="#one-duct" transform-origin="50 50" transform="scale(1,-1) translate(0,10)" />
         </clipPath>
 
     </defs>
 
-    <rect transform="translate(-2.5,5)" class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
+    <g transform="translate(-2.5,5)">
 
-    <g class="power" transform="translate(85 45)">
-        <rect x="0" y="0" width="25" height="10" fill="#ffffff80" rx="2" />
-        <use href="#fan" x="3" y="5" fill="black" />
-        <text class="label" x="12" y="5" dominant-baseline="middle">
-            <tspan id="power">50</tspan>%
-        </text>
-        <title>Power level</title>
-    </g>
+        <rect class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
 
-    <g class="fresh-in">
-        <g>
-            <title>Incoming fresh air temperature</title>
-            <text class="label white" x="12" y="0" text-anchor="end">
-                <tspan id="fresh-in">14</tspan> °C
+        <g class="power" transform="translate(83 36.5)">
+            <rect x="0" y="0" width="42" height="18" fill="#ffffff80" rx="2" />
+            <use href="#fan" x="6" y="7" fill="black" />
+            <text class="label larger" x="20" y="9.5" dominant-baseline="middle">
+                <tspan id="power">50</tspan>%
+            </text>
+            <title>Power level</title>
+        </g>
+
+        <g transform-origin="50 50" transform="translate(20,12)">
+            <g>
+                <title>Incoming fresh air temperature</title>
+                <text class="label" x="0" y="0" text-anchor="begin" dominant-baseline="middle">
+                    <tspan id="fresh-in">14</tspan> °C
+                </text>
+            </g>
+            <g transform="translate(24,0)" class="preheater-visible">
+                <title>Preheater temperature</title>
+                <use href="#radiator" x="0" y="0" />
+                <text class="label" x="0" y="0">
+                    <tspan id="preheater">60</tspan> °C
+                </text>
+            </g>
+        </g>
+
+        <g transform-origin="50 50" transform="translate(192,12)">
+            <title>Treated fresh air temperature</title>
+            <text class="label" x="0" y="0" text-anchor="end" dominant-baseline="middle">
+                <tspan id="fresh-treated">19</tspan> °C
             </text>
         </g>
-        <g transform="translate(24,0)" class="preheater-visible">
-            <title>Preheater temperature</title>
-            <use href="#radiator" x="0" y="0" />
-            <text class="label" x="6" y="0">
-                <tspan id="preheater">60</tspan> °C
+
+        <g transform-origin="50 50" transform="translate(16,78.5)">
+            <title>Treated exhaust temperature</title>
+            <text class="label" x="0" y="0" text-anchor="begin" dominant-baseline="middle">
+                <tspan id="exhaust-treated">14</tspan> °C
             </text>
         </g>
-    </g>
 
-    <g class="fresh-treated">
-        <title>Treated fresh air temperature</title>
-        <text class="label" x="10" y="0" text-anchor="end">
-            <tspan id="fresh-treated">19</tspan> °C
-        </text>
-    </g>
-
-    <g class="exhaust-treated">
-        <title>Treated exhaust temperature</title>
-        <text class="label" x="24" y="0" text-anchor="end">
-            <tspan id="exhaust-treated">14</tspan> °C
-        </text>
-    </g>
-
-    <g class="exhaust-in">
-        <title>Incoming exhaust temperature</title>
-        <text class="label white" x="24" y="0" text-anchor="end">
-            <tspan id="exhaust-in">24</tspan> °C
-        </text>
+        <g transform-origin="50 50" transform="translate(188,78.5)">
+            <title>Incoming exhaust temperature</title>
+            <text class="label white" x="0" y="0" text-anchor="end" dominant-baseline="middle">
+                <tspan id="exhaust-in">24</tspan> °C
+            </text>
+        </g>
     </g>
 
 </svg>
