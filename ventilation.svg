@@ -1,9 +1,9 @@
-<svg version="1.1" viewBox="0 0 200 100"
-    xmlns="http://www.w3.org/2000/svg" class="ventilation-root">
+<svg version="1.1" viewBox="0 0 200 130"
+    xmlns="http://www.w3.org/2000/svg">
 
     <style>
 
-    .ventilation-root {
+    :root {
         background: #202024;
         user-select: none;
         --left-x: 2px;
@@ -13,72 +13,51 @@
         --red: #e56172;
     }
 
-    .ventilation-root .label {
-        font: 5px 'Segoe UI', sans-serif;
+    .label {
+        font: 7px 'Segoe UI', sans-serif;
     }
 
-    .ventilation-root .larger {
-        font-size: 8px;
+    .larger {
+        font-size: 9px;
     }
 
-    .ventilation-root .white {
+    .white {
         fill: #fafafb;
     }
 
-    .ventilation-root .opacity-80 {
+    .opacity-80 {
         opacity: .8;
     }
 
-    .ventilation-root .red {
+    .red {
         fill: var(--red);
     }
 
-    .ventilation-root .channel {
+    .channel {
         fill: url(#channel-fill);
         stroke-linejoin: round;
         stroke-width: 2px;
         transition: clip-path .25s ease-out;
     }
 
-    .ventilation-root.bypass .bypass-hidden, .bypass-visible {
-        display: none;
-    }
-
-    .ventilation-root.bypass .bypass-visible {
+    .bypass-visible {
         display: block;
     }
 
-    .ventilation-root .preheater-visible {
+    .preheater-visible {
         display: none;
         opacity: 0;
     }
 
-    .ventilation-root.preheater .preheater-visible {
+    .preheater .preheater-visible {
         display: block;
         opacity: 1;
         transition: opacity .3s ease-in;
     }
 
-    .ventilation-root .fresh-in {
-        transform: translate(var(--left-x), var(--top-y));
-        transition: transform .25s ease-out;
+    .stopped .stopped-hidden {
+        opacity: 0;
     }
-
-    .ventilation-root .fresh-treated {
-        transform: translate(var(--right-x), var(--top-y));
-        transition: transform .25s ease-out;
-    }
-
-    .ventilation-root .exhaust-treated {
-        transform: translate(var(--left-x), var(--bottom-y));
-        transition: transform .25s ease-out;
-    }
-
-    .ventilation-root .exhaust-in {
-        transform: translate(var(--right-x), var(--bottom-y));
-        transition: transform .25s ease-out;
-    }
-
 
     </style>
 
@@ -113,7 +92,7 @@
             </g>
         </g>
 
-        <g id="fan" transform="translate(-1.5, -4.1) scale(.12)">
+        <g id="fan" transform="translate(-1.5, -4.1) scale(.10)">
             <path d="M62.841,46.809c4.031-1.447,10.757-2.366,17.216,1.222c10.979,6.097,21.299-3.18,19.797-13.452
                 C98.522,25.476,92.9,16.208,85.76,12.484c-10.678-5.565-18.762-2.468-25.019,4.323c-4.097,4.45-8.382,12.298-8.714,19.762
                 c-0.157,3.514-4.237,3.329-5.218,0.591c-1.448-4.031-2.367-10.758,1.219-17.215c6.1-10.981-3.178-21.302-13.449-19.799
@@ -135,25 +114,65 @@
                 l -6,-12 6,-12
                 z
             ">
+
+            <animate id="beginBypass" attributeName="d" to="M 12,0 l 45,0 25,0 44,0 25,0 47,0 l -6,12 6,12 l -41,0 -25,0 -56,0 -25,0 -35,0 l -6,-12 6,-12 z" dur="300ms" begin="indefinite" repeatCount="1" fill="freeze" />
+            <animate id="stopBypass" attributeName="d" to=" M 12,0 l 45,0 25,25 44,0 25,-25 47,0 l -6,12 6,12 l -41,0 -25,25, -56,0 -25,-25 -35,0 l -6,-12 6,-12 z" dur="300ms" begin="indefinite" repeatCount="1" fill="freeze"/>
         </path>
+
+        <path id="one-duct-stream" d="M 76,30 l 45,0">
+            <animate attributeName="d" to="M 76,6 l 45,0" dur="300ms" begin="beginBypass.beginEvent" repeatCount="1" fill="freeze" />
+            <animate attributeName="d" to="M 76,30 l 45,0" dur="300ms" begin="stopBypass.beginEvent" repeatCount="1" fill="freeze"/>
+        </path>
+
+        <path id="chevron" transform="scale(0.7)" fill="#ffffff40" fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+        </path>
+
         <clipPath id="ducts-clip">
             <use href="#one-duct" transform-origin="50 50" transform="scale(-1,1) translate(-108,-0)" />
             <use href="#one-duct" transform-origin="50 50" transform="scale(1,-1) translate(0,10)" />
         </clipPath>
 
+        <g id="stream">
+            <use href="#chevron">
+                <animateMotion dur="5s" begin="-4s" repeatCount="indefinite">
+                    <mpath href="#one-duct-stream" />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" begin="-4s" repeatCount="indefinite"/>
+            </use>
+            <use href="#chevron">
+                <animateMotion dur="5s" begin="-3s" repeatCount="indefinite">
+                    <mpath href="#one-duct-stream" />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" begin="-3s" repeatCount="indefinite"/>
+            </use>
+            <use href="#chevron">
+                <animateMotion dur="5s" begin="-2s" repeatCount="indefinite">
+                    <mpath href="#one-duct-stream" />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" begin="-2s" repeatCount="indefinite"/>
+            </use>
+            <use href="#chevron">
+                <animateMotion dur="5s" begin="-1s" repeatCount="indefinite">
+                    <mpath href="#one-duct-stream" />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" begin="-1s" repeatCount="indefinite"/>
+            </use>
+            <use href="#chevron">
+                <animateMotion dur="5s" repeatCount="indefinite">
+                    <mpath href="#one-duct-stream" />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" begin="0s" repeatCount="indefinite"/>
+            </use>
+        </g>
     </defs>
 
     <g transform="translate(-2.5,5)">
 
         <rect class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
 
-        <g class="power" transform="translate(83 36.5)">
-            <rect x="0" y="0" width="42" height="18" fill="#ffffff80" rx="2" />
-            <use href="#fan" x="6" y="7" fill="black" />
-            <text class="label larger" x="20" y="9.5" dominant-baseline="middle">
-                <tspan id="power">50</tspan>%
-            </text>
-            <title>Power level</title>
+        <g class="stopped-hidden">
+            <use href="#stream" />
+            <use href="#stream" transform="scale(-1,-1) translate(-208,-90)" />
         </g>
 
         <g transform-origin="50 50" transform="translate(20,12)">
@@ -161,13 +180,6 @@
                 <title>Incoming fresh air temperature</title>
                 <text class="label" x="0" y="0" text-anchor="begin" dominant-baseline="middle">
                     <tspan id="fresh-in">14</tspan> °C
-                </text>
-            </g>
-            <g transform="translate(24,0)" class="preheater-visible">
-                <title>Preheater temperature</title>
-                <use href="#radiator" x="0" y="0" />
-                <text class="label" x="0" y="0">
-                    <tspan id="preheater">60</tspan> °C
                 </text>
             </g>
         </g>
@@ -188,10 +200,32 @@
 
         <g transform-origin="50 50" transform="translate(188,78.5)">
             <title>Incoming exhaust temperature</title>
-            <text class="label white" x="0" y="0" text-anchor="end" dominant-baseline="middle">
+            <text class="label" x="0" y="0" text-anchor="end" dominant-baseline="middle">
                 <tspan id="exhaust-in">24</tspan> °C
             </text>
         </g>
+
+        <g class="power" transform="translate(10 100)">
+            <rect x="0" y="0" width="44" height="18" opacity=".5" class="white" rx="2" />
+            <use href="#fan" x="6" y="7" />
+            <text class="label larger" x="20" y="9.5" dominant-baseline="middle">
+                <tspan id="power">50</tspan>%
+            </text>
+            <title>Power level</title>
+
+            <animateTransform attributeName="transform" to="translate(83 40)" dur="300ms" begin="beginBypass.beginEvent" repeatCount="1" fill="freeze" />
+            <animateTransform attributeName="transform" to="translate(83 71)" dur="300ms" begin="stopBypass.beginEvent" repeatCount="1" fill="freeze"/>
+        </g>
+
+        <g transform="translate(60,100)" class="preheater-visible">
+            <rect x="0" y="0" width="42" height="18" opacity=".5" class="white" rx="2" />
+            <title>Preheater temperature</title>
+            <use href="#radiator" x="10" y="10" />
+            <text class="label larger" x="19" y="9.5" dominant-baseline="middle">
+                <tspan id="preheater">60</tspan> °C
+            </text>
+        </g>
+
     </g>
 
 </svg>

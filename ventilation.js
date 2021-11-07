@@ -15,10 +15,34 @@
         /** @type {Animation?} */
         let fanAnimation;
 
+        /** @type {SVGAnimateElement?} */
+        const beginBypassAnimation = document.getElementById('beginBypass');
+
+        /** @type {SVGAnimateElement?} */
+        const stopBypassAnimation = document.getElementById('stopBypass');
+
+
         /** @param {keyof Mapping} name */
         function getValue(name) {
             const el = document.getElementById(Mapping[name]);
             return el ? parseInt(el.textContent, 10) : 0;
+        }
+
+        function isBypassed() {
+            return document.documentElement.classList.contains('bypass');
+        }
+
+        let bypass = false;
+
+        function updateBypass() {
+            if (isBypassed() !== bypass) {
+                bypass = isBypassed();
+                if (bypass) {
+                    beginBypassAnimation.beginElement();
+                } else {
+                    stopBypassAnimation.beginElement();
+                }
+            }
         }
 
         function updateFanAnimation() {
@@ -48,12 +72,15 @@
             );
         }
 
-        const observer = new MutationObserver(() => {
+        function update() {
+            document.documentElement.classList.toggle('stopped', getValue('power') < 1)
+            updateBypass();
             updatePreheater();
             updateFanAnimation();
-        });
+        }
 
-        observer.observe(document.documentElement, { characterData: true, childList: true, subtree: true })
+        new MutationObserver(update).observe(document.documentElement, { attributeFilter: ['class'] });
+        new MutationObserver(update).observe(document.documentElement, { characterData: true, childList: true, subtree: true });
     }
 
     if ('MutationObserver' in window) {
