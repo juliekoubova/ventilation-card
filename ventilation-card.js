@@ -8,10 +8,11 @@ class TotoroVentilationCardElement extends HTMLElement {
             `;
             this.content = this.querySelector('div');
         }
+        console.log({ value });
     }
 
     setConfig(config) {
-
+        console.log({ config });
     }
 
     getCardSize() { return 3; }
