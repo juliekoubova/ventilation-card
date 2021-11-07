@@ -48,7 +48,7 @@
             );
         }
 
-        const observer = new MutationObserver((mutations, observer) => {
+        const observer = new MutationObserver(() => {
             updatePreheater();
             updateFanAnimation();
         });

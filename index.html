@@ -43,31 +43,42 @@
             <input type="checkbox" data-toggle="warmer-outside" disabled>
         </div>
 
-        <div style="flex: 1;">
-            <object width="1024" height="720" data="ventilation.svg" style="max-width: 100%; max-height: 100%;" ></object>
+        <div style="flex: 1;" id="insert-svg">
         </div>
     </div>
 
     <script type="module">
-        const svg = document.querySelector('object');
-        svg.addEventListener('load', () => {
-            for (const el of document.querySelectorAll('[data-toggle]')) {
-                el.removeAttribute('disabled')
-                el.addEventListener('change', () => {
-                    svg.contentDocument.rootElement.classList.toggle(el.dataset.toggle);
-                });
-            }
-            for (const input of document.querySelectorAll('input[type=number]')) {
-                const svg_element = svg.contentDocument.getElementById(input.id);
-                if (svg_element) {
-                    function update() {
-                        svg_element.textContent = input.value;
-                    }
-                    input.removeAttribute('disabled')
-                    input.addEventListener('change', update);
-                    update();
+        const svg = document.addEventListener('DOMContentLoaded', async () => {
+            const response = await fetch('ventilation.svg');
+            const svgText = await response.text();
+
+            const shadow = document.getElementById('insert-svg').attachShadow({ mode: 'open' });
+
+            const svgContainer = document.createElement('div');
+            svgContainer.innerHTML = svgText;
+
+            const svg = svgContainer.querySelector('svg');
+            shadow.appendChild(svg);
+
+            svg.addEventListener('load', () => {
+                for (const el of document.querySelectorAll('[data-toggle]')) {
+                    el.removeAttribute('disabled')
+                    el.addEventListener('change', () => {
+                        svg.contentDocument.rootElement.classList.toggle(el.dataset.toggle);
+                    });
                 }
-            }
+                for (const input of document.querySelectorAll('input[type=number]')) {
+                    const svg_element = svg.contentDocument.getElementById(input.id);
+                    if (svg_element) {
+                        function update() {
+                            svg_element.textContent = input.value;
+                        }
+                        input.removeAttribute('disabled')
+                        input.addEventListener('change', update);
+                        update();
+                    }
+                }
+            });
         });
     </script>
 </body>
