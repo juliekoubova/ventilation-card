@@ -7,6 +7,7 @@ class TotoroVentilationCardElement extends HTMLElement {
                 </ha-card>
             `;
             this.content = this.querySelector('div');
+            this.content.innerText = document.currentScript.src;
         }
         console.log({ value });
     }
