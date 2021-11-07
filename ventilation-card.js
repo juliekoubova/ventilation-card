@@ -6,7 +6,7 @@ class TotoroVentilationCardElement extends HTMLElement {
                     <div class="card-content">Hello darkness</div>
                 </ha-card>
             `;
-            this.content = this.querySelector(div);
+            this.content = this.querySelector('div');
         }
     }
 
