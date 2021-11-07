@@ -1,9 +1,9 @@
 <svg version="1.1" viewBox="0 0 190 100"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg" class="ventilation-root">
 
     <style>
 
-    :root {
+    .ventilation-root {
         background: #202024;
         user-select: none;
         --left-x: 2px;
@@ -13,30 +13,30 @@
         --red: #e56172;
     }
 
-    .label {
+    .ventilation-root .label {
         font: 5px 'Segoe UI', sans-serif;
     }
 
-    .white {
+    .ventilation-root .white {
         fill: #fafafb;
     }
 
-    .opacity-80 {
+    .ventilation-root .opacity-80 {
         opacity: .8;
     }
 
-    .red {
+    .ventilation-root .red {
         fill: var(--red);
     }
 
-    .channel {
+    .ventilation-root .channel {
         fill: url(#channel-fill);
         stroke-linejoin: round;
         stroke-width: 2px;
         transition: clip-path .25s ease-out;
     }
 
-    .fresh-channel {
+    .ventilation-root .fresh-channel {
         clip-path: polygon(
             0%   0%,
             33%  0%,
@@ -51,7 +51,7 @@
         );
     }
 
-    .exhaust-channel {
+    .ventilation-root .exhaust-channel {
         clip-path: polygon(
             0% 87.5%,
             5% 75%,
@@ -66,7 +66,7 @@
         );
     }
 
-    .bypass .fresh-channel {
+    .ventilation-root.bypass .fresh-channel {
         clip-path: polygon(
             0% 75%,
             30% 75%,
@@ -81,7 +81,7 @@
         );
     }
 
-    .bypass .exhaust-channel {
+    .ventilation-root.bypass .exhaust-channel {
         clip-path: polygon(
             0% 12.5%,
             5% 0%,
@@ -96,45 +96,41 @@
         );
     }
 
-    .warmer-outside .channel {
-        fill: url(#channel-fill-warmer-outside);
-    }
-
-    .bypass .bypass-hidden, .bypass-visible {
+    .ventilation-root.bypass .bypass-hidden, .bypass-visible {
         display: none;
     }
 
-    .bypass .bypass-visible {
+    .ventilation-root.bypass .bypass-visible {
         display: block;
     }
 
-    .preheater-visible {
+    .ventilation-root .preheater-visible {
         display: none;
         opacity: 0;
     }
 
-    .preheater .preheater-visible {
+    .ventilation-root.preheater .preheater-visible {
         display: block;
         opacity: 1;
         transition: opacity .3s ease-in;
     }
 
-    .exhaust-in {
+    .ventilation-root .exhaust-in {
         transform: translate(var(--right-x), var(--top-y));
         transition: transform .25s ease-out;
     }
 
-    .exhaust-treated, .bypass .fresh-in {
+    .ventilation-root .exhaust-treated, .ventilation-root.bypass .fresh-in {
         transform: translate(var(--left-x), var(--bottom-y));
         transition: transform .25s ease-out;
     }
 
-    .fresh-in, .bypass .exhaust-treated {
+    .ventilation-root .fresh-in, .ventilation-root.bypass .exhaust-treated {
         transform: translate(var(--left-x), var(--top-y));
         transition: transform .25s ease-out;
     }
 
-    .fresh-treated {
+    .ventilation-root .fresh-treated {
         transform: translate(var(--right-x), var(--bottom-y));
         transition: transform .25s ease-out;
     }
