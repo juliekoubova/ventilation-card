@@ -125,20 +125,21 @@
 
         <path id="one-duct" d="
                 M 12,0
-                l 53,0 25,25 26,0 25,-25 53,0
+                l 45,0 25,25 44,0 25,-25 47,0
                 l -6,12 6,12
-                l -44,0 -25,25, -44,0 -25,-25 -44,0
+                l -41,0 -25,25, -56,0 -25,-25 -35,0
                 l -6,-12 6,-12
                 z
-            " />
+            ">
+        </path>
         <clipPath id="ducts-clip">
             <use href="#one-duct" />
-            <use href="#one-duct" transform-origin="50 50" transform="scale(-1,-1) translate(-106,10)" />
+            <use href="#one-duct" transform-origin="50 50" transform="scale(-1,-1) translate(-108,10)" />
         </clipPath>
 
     </defs>
 
-    <rect transform="translate(0,5)" class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
+    <rect transform="translate(-2.5,5)" class="ducts" x="0" y="0" width="200" height="100" fill="url(#channel-fill)" clip-path="url(#ducts-clip)" />
 
     <g class="power" transform="translate(85 45)">
         <rect x="0" y="0" width="25" height="10" fill="#ffffff80" rx="2" />
